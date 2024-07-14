@@ -1,70 +1,31 @@
 package Citas.Persona;
 
+
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@NoArgsConstructor @Getter @Setter @ToString
 public class Direccion {
-    private int id = 0;
+    @Id
+    @Column(name = "direccion_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id = 0;
     private String pais = null;
     private String ciudad = null;
     private String municipio = null;
     private String calle = null;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "direccion")
+    private List<Paciente> pacientes = null;
 
-    public Direccion() {
-    }
-
-    public Direccion(int id, String pais, String ciudad, String municipio, String calle) {
-        this.id = id;
+    public Direccion(String pais, String ciudad, String municipio, String calle) {
         this.pais = pais;
         this.ciudad = ciudad;
         this.municipio = municipio;
         this.calle = calle;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    @Override
-    public String toString() {
-        return "Direccion{" +
-                "pais='" + getPais() + '\'' +
-                ", ciudad='" + getCiudad() + '\'' +
-                ", municipio='" + getMunicipio() + '\'' +
-                ", calle='" + getCalle() + '\'' +
-                '}';
     }
 }

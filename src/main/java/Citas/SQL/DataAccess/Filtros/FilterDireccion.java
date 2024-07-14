@@ -15,10 +15,7 @@ public enum FilterDireccion implements Filter {
         @Override
         public List<Direccion> get(String val) throws SQLException {
             List<Direccion> direcciones = new ArrayList<>();
-            try (PreparedStatement statement = new DAO().getConnection().prepareStatement("SELECT * FROM Direccion")) {
-                ResultSet rs = statement.executeQuery();
-                iterateRS(direcciones, rs);
-            }
+
 
             return direcciones;
         }
@@ -27,11 +24,7 @@ public enum FilterDireccion implements Filter {
         @Override
         public List<Direccion> get(String val) throws SQLException {
             List<Direccion> direcciones = new ArrayList<>();
-            try(PreparedStatement statement = new DAO().getConnection().prepareStatement("SELECT * FROM Direccion WHERE Id_direccion = ?")){
-                statement.setInt(1, Integer.parseInt(val));
-                ResultSet rs = statement.executeQuery();
-                iterateRS(direcciones, rs);
-            }
+
 
             return direcciones;
         }
@@ -65,22 +58,13 @@ public enum FilterDireccion implements Filter {
 
     public List<Direccion> getb(String val, String filter) throws SQLException{
         List<Direccion> direcciones = new ArrayList<>();
-        try(PreparedStatement statement = new DAO().getConnection().prepareStatement("SELECT * FROM Direccion WHERE "+filter+" = ?")){
-            statement.setString(1, val);
-            ResultSet rs = statement.executeQuery();
-            iterateRS(direcciones, rs);
-        }
+
         return direcciones;
     }
 
     public void iterateRS(List<Direccion> list, ResultSet rs) throws SQLException {
         while(rs.next()) {
-            list.add(new Direccion(
-                    rs.getInt("Id_direccion"),
-                    rs.getString("Pais"),
-                    rs.getString("Ciudad"),
-                    rs.getString("Municipio"),
-                    rs.getString("Calle")));
+
         }
     }
 }
